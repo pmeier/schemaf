@@ -1,0 +1,16 @@
+language: python
+python: "3.6"
+
+matrix:
+  include:
+    - name: "Code format"
+      before_install: pip install black
+      install: skip
+      script: black --check .
+    - name: "Type checks"
+      install: pip install .[type_check]
+      script: mypy --config-file=mypy.ini {{cookiecutter.pkg_name}}/
+    - name: "Tests"
+      install: pip install .[test]
+      script: coverage run --rcfile=.coveragerc -m pytest test/
+      after success: codecov

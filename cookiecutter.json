@@ -1,0 +1,12 @@
+{
+  "repo_name": "python_project_skeleton",
+  "pkg_name": "{{cookiecutter.repo_name}}",
+  "description": "Short description of the {{cookiecutter.pkg_name}} package",
+  "version": "0.0.dev0",
+  "url": "https://github.com/pmeier/{{cookiecutter.repo_name}}",
+  "author": "Philip Meier",
+  "author_email": "github.pmeier@posteo.de",
+  "dev_status": "1 - Planning",
+  "minimum_python_version": "3.6",
+  "typing_extensions": "{{'y' if cookiecutter.minimum_python_version < '3.7' else 'n'}}"
+}

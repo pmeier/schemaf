@@ -25,6 +25,7 @@ dev_requires = (
     *doc_requires,
     *test_requires,
     "pre-commit",
+    "black",
 )
 
 extras_require = {

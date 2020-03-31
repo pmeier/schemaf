@@ -1,5 +1,5 @@
 language: python
-python: "3.6"
+python: "{{cookiecutter.python_version}}"
 
 matrix:
   include:
@@ -11,6 +11,7 @@ matrix:
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini {{cookiecutter.pkg_name}}/
     - name: "Tests"
+      before install: pip install coverage codecov
       install: pip install .[test]
-      script: coverage run --rcfile=.coveragerc -m pytest test/
+      script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
       after success: codecov

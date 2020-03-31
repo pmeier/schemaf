@@ -22,6 +22,7 @@ doc_requires = (
 )
 
 dev_requires = (
+    *type_check_requires,
     *doc_requires,
     *test_requires,
     "pre-commit",
@@ -29,6 +30,7 @@ dev_requires = (
 )
 
 extras_require = {
+    "type_check": type_check_requires,
     "doc": doc_requires,
     "test": test_requires,
     "dev": dev_requires,

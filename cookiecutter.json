@@ -1,9 +1,10 @@
 {
-  "repo_name": "python_project_skeleton",
+  "github_tag": "pmeier",
+  "repo_name": "{{cookiecutter.github_tag}}_schemaf",
   "pkg_name": "{{cookiecutter.repo_name}}",
-  "description": "Short description of the {{cookiecutter.pkg_name}} package",
+  "description": "Short description of the {{cookiecutter.pkg_name}} package.",
   "version": "0.0.dev0",
-  "url": "https://github.com/pmeier/{{cookiecutter.repo_name}}",
+  "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.repo_name}}",
   "author": "Philip Meier",
   "author_email": "github.pmeier@posteo.de",
   "dev_status": "1 - Planning",

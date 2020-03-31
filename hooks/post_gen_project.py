@@ -13,8 +13,25 @@ def run_python_cmd(*args, executable=sys.executable, module=False):
     run_cmd(executable, *args)
 
 
-def initialize_git(project_root):
-    run_cmd("git", "init", project_root)
+def run_git_cmd(*args, path=None):
+    if path is not None:
+        args = ("-C", path, *args)
+    run_cmd("git", *args)
+
+
+def initialize_git(
+    project_root,
+    user_name="{{cookiecutter.author}}",
+    user_email="{{cookiecutter.author_email}}",
+    initial_commit_msg="Initial commit",
+    url="{{cookiecutter.url}}",
+):
+    run_git_cmd("init", project_root)
+    run_git_cmd("config", "user.name", f"'{user_name}'", path=project_root)
+    run_git_cmd("config", "user.email", f"'{user_email}'", path=project_root)
+    run_git_cmd("add", ".", path=project_root)
+    run_git_cmd("commit", "-m", initial_commit_msg, path=project_root)
+    run_git_cmd("remote", "add", "origin", url)
 
 
 def create_virtual_environment(

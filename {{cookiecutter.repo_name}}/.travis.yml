@@ -1,5 +1,5 @@
 language: python
-python: "{{cookiecutter.python_version}}"
+python: {{cookiecutter.python_version}}
 
 matrix:
   include:
@@ -9,7 +9,7 @@ matrix:
       script: black --check .
     - name: "Type checks"
       install: pip install .[type_check]
-      script: mypy --config-file=mypy.ini {{cookiecutter.pkg_name}}/
+      script: mypy --config-file=mypy.ini
     - name: "Tests"
       before install: pip install coverage codecov
       install: pip install .[test]

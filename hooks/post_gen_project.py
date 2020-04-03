@@ -31,7 +31,7 @@ def initialize_git(
     run_git_cmd("config", "user.email", f"'{user_email}'", path=project_root)
     run_git_cmd("add", ".", path=project_root)
     run_git_cmd("commit", "-m", initial_commit_msg, path=project_root)
-    run_git_cmd("remote", "add", "origin", url)
+    run_git_cmd("remote", "add", "origin", url, path=project_root)
 
 
 def create_virtual_environment(

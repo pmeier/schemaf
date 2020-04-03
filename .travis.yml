@@ -1,5 +1,14 @@
+os: linux
+dist: bionic
 language: python
 python: 3.6
+
+before_install: pip install cookiecutter
+install:
+  - cd ..
+  - cookiecutter schemaf --no-input
+  - cd pmeier_schemaf
+  - source .venv/bin/activate
 
 matrix:
   include:
@@ -7,14 +16,9 @@ matrix:
       before_install: pip install black
       install: skip
       script: black --check .
-    - name: "Smoke test"
-      before install: pip install cookiecutter
-      install:
-        - cd ..
-        - cookiecutter schemaf --no-input
-        - cd pmeier_schemaf
-        - source .venv/bin/activate
-      script:
-        - black --check .
-        - mypy
-        - pytest
+    - name: "Skeleton code format"
+      script: black --check .
+    - name: "Skeleton type checks"
+      script: mypy
+    - name: "Skeleton tests"
+      script: pytest

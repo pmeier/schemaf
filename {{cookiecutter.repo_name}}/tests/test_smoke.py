@@ -7,12 +7,13 @@ from setuptools import find_packages
 import unittest
 
 PROJECT_ROOT = path.abspath(path.join(path.dirname(__file__), ".."))
-PACKAGE_ROOT = path.join(PROJECT_ROOT, "{{cookiecutter.pkg_name}}")
+PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
+PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 
 def load_put():
     spec = util.spec_from_file_location(
-        "{{cookiecutter.pkg_name}}", path.join(PACKAGE_ROOT, "__init__.py"),
+        PACKAGE_NAME, path.join(PACKAGE_ROOT, "__init__.py"),
     )
     put = util.module_from_spec(spec)
     spec.loader.exec_module(put)
@@ -48,7 +49,7 @@ class TestCase(unittest.TestCase):
             public_modules.extend(find_modules(PACKAGE_ROOT, package=package))
 
         for module in itertools.chain(public_packages, public_modules):
-            import_module(f".{module}", package=package_under_test)
+            import_module(f".{module}", package=PACKAGE_NAME)
 
     def test_about(self):
         for attr in (
@@ -63,7 +64,7 @@ class TestCase(unittest.TestCase):
             self.assertIsInstance(getattr(package_under_test, f"__{attr}__"), str)
 
     def test_name(self):
-        self.assertEqual(package_under_test.__name__, "{{cookiecutter.pkg_name}}")
+        self.assertEqual(package_under_test.__name__, PACKAGE_NAME)
 
     def test_version(self):
         def is_canonical(version):

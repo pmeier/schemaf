@@ -10,7 +10,6 @@ def verify(expr, msg):
 
 
 def verify_pkg_name(pkg_name="{{cookiecutter.pkg_name}}"):
-
     # Copied from
     # https://stackoverflow.com/a/36331242/1654607
     def is_valid_variable_name(name):

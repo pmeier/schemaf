@@ -11,7 +11,7 @@ PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
 PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 
-def load_put():
+def load_package_under_test():
     spec = util.spec_from_file_location(
         PACKAGE_NAME, path.join(PACKAGE_ROOT, "__init__.py"),
     )
@@ -20,7 +20,7 @@ def load_put():
     return put
 
 
-package_under_test = load_put()
+package_under_test = load_package_under_test()
 
 
 class TestCase(unittest.TestCase):
@@ -78,4 +78,12 @@ class TestCase(unittest.TestCase):
                 is not None
             )
 
-        self.assertTrue(is_canonical(package_under_test.__version__))
+        def is_dev(version):
+            match = re.search(r"\+dev([.][\da-f]{7}([.]dirty)?)?$", version)
+            if match is not None:
+                return is_canonical(version[: match.span()[0]])
+            else:
+                return False
+
+        version = package_under_test.__version__
+        self.assertTrue(is_canonical(version) or is_dev(version))

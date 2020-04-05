@@ -3,7 +3,7 @@
   "repo_name": "{{cookiecutter.github_tag}}_schemaf",
   "pkg_name": "{{cookiecutter.repo_name}}",
   "description": "Short description of the {{cookiecutter.pkg_name}} package.",
-  "version": "0.0.dev0",
+  "version": "0.1+dev",
   "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.repo_name}}",
   "author": "Philip Meier",
   "author_email": "github.pmeier@posteo.de",

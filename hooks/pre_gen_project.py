@@ -30,7 +30,17 @@ def verify_version(version="{{cookiecutter.version}}"):
             is not None
         )
 
-    verify(is_canonical(version), f"Version {version} is not canonical.")
+    def is_dev(version):
+        match = re.search(r"\+dev([.][\da-f]{7}([.]dirty)?)?$", version)
+        if match is not None:
+            return is_canonical(version[: match.span()[0]])
+        else:
+            return False
+
+    verify(
+        is_canonical(version) or is_dev(version),
+        f"Version {version} is not canonical nor dev.",
+    )
 
 
 def main():

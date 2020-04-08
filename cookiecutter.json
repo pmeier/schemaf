@@ -10,5 +10,6 @@
   "dev_status": "1 - Planning",
   "python_version": "3.6",
   "minimum_python_version": "{{cookiecutter.python_version}}",
-  "typing_extensions": "{{'y' if cookiecutter.python_version < '3.7' else 'n'}}"
+  "typing_extensions": "{{'y' if cookiecutter.python_version < '3.7' else 'n'}}",
+  "line_length": "88"
 }

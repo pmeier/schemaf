@@ -1,6 +1,6 @@
-from typing import Optional
-from os import path
 import subprocess
+from os import path
+from typing import Optional
 
 __all__ = ["is_repo", "is_available", "is_dirty", "hash"]
 

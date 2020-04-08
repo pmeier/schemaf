@@ -1,10 +1,11 @@
-from importlib import import_module, util
-import os
-from os import path
-import re
 import itertools
-from setuptools import find_packages
+import os
+import re
 import unittest
+from importlib import import_module, util
+from os import path
+
+from setuptools import find_packages
 
 PROJECT_ROOT = path.abspath(path.join(path.dirname(__file__), ".."))
 PACKAGE_NAME = "{{cookiecutter.pkg_name}}"

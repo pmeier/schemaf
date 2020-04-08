@@ -1,17 +1,23 @@
+os: linux
+dist: bionic
 language: python
 python: {{cookiecutter.python_version}}
 
-matrix:
+jobs:
   include:
     - name: "Code format"
-      before_install: pip install black
-      install: skip
-      script: black --check .
+      install: pip install isort black flake8
+      script:
+        - JOBS=$(nproc)
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - black --config=pyproject.toml --check .
+        - flake8 --config=.flake8 --jobs=$JOBS .
     - name: "Type checks"
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini
     - name: "Tests"
-      before install: pip install coverage codecov
-      install: pip install .[test]
+      install: pip install .[test] coverage codecov
       script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
-      after success: codecov
+      after_success:
+        - coverage report
+        - codecov

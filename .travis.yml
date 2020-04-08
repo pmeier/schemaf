@@ -3,22 +3,34 @@ dist: bionic
 language: python
 python: 3.6
 
-before_install: pip install cookiecutter
-install:
+before_install:
+  - pip install cookiecutter
   - cd ..
   - cookiecutter schemaf --no-input
   - cd pmeier_schemaf
   - source .venv/bin/activate
 
-matrix:
+jobs:
   include:
     - name: "Code format"
-      before_install: pip install black
-      install: skip
-      script: black --check .
-    - name: "Skeleton code format"
-      script: black --check .
-    - name: "Skeleton type checks"
-      script: mypy
-    - name: "Skeleton tests"
-      script: pytest
+      before_install: skip
+      install: pip install isort black flake8
+      script:
+        - JOBS=$(nproc)
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - black --config=pyproject.toml --check .
+        - flake8 --config=.flake8 --jobs=$JOBS .
+    - name: "Project code format"
+      install: pip install isort black flake8
+      script:
+        - JOBS=$(nproc)
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - black --config=pyproject.toml --check .
+        - flake8 --config=.flake8 --jobs=$JOBS .
+    - name: "Project type checks"
+      install: pip install .[type_check]
+      script: mypy --config-file=mypy.ini
+    - name: "Project tests"
+      install: pip install .[test] coverage
+      script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
+      after_success: coverage report

@@ -6,8 +6,8 @@
 
 # -- Imports -----------------------------------------------------------------
 
-from os import path
 from datetime import datetime
+from os import path
 
 # -- Path setup --------------------------------------------------------------
 

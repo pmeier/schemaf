@@ -1,6 +1,6 @@
-from keyword import iskeyword
-import sys
 import re
+import sys
+from keyword import iskeyword
 
 
 def verify(expr, msg):

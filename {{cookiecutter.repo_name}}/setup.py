@@ -1,6 +1,7 @@
-from importlib.util import spec_from_file_location, module_from_spec
+from importlib.util import module_from_spec, spec_from_file_location
 from os import path
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
 PACKAGE_NAME = "{{cookiecutter.pkg_name}}"

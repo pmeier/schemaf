@@ -1,6 +1,6 @@
+import subprocess
 import sys
 from os import path
-import subprocess
 
 
 def run_cmd(executable, *args):

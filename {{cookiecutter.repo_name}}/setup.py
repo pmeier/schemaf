@@ -26,7 +26,7 @@ install_requires = ("typing_extensions",)
 
 type_check_requires = ("mypy",)
 
-test_requires = ("pytest",)
+test_requires = ("pytest", "setuptools")
 
 doc_requires = (
     "sphinx",

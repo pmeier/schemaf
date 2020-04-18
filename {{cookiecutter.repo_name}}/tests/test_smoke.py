@@ -1,6 +1,9 @@
+import contextlib
 import itertools
 import os
 import re
+import shutil
+import tempfile
 import unittest
 from importlib import import_module, util
 from os import path
@@ -11,19 +14,26 @@ PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
 PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 
-def load_package_under_test():
-    spec = util.spec_from_file_location(
-        PACKAGE_NAME, path.join(PACKAGE_ROOT, "__init__.py"),
-    )
-    put = util.module_from_spec(spec)
-    spec.loader.exec_module(put)
-    return put
+def load_module(location):
+    name, ext = path.splitext(path.basename(location))
+    if ext != ".py":
+        location = path.join(location, "__init__.py")
+
+    spec = util.spec_from_file_location(name, location=location)
+    module = util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-package_under_test = load_package_under_test()
+package_under_test = load_module(PACKAGE_ROOT)
+git = load_module(path.join(PACKAGE_ROOT, "_git.py"))
+
+skip_if_git_not_available = unittest.skipIf(
+    not git.is_available(), "git is not available."
+)
 
 
-class TestCase(unittest.TestCase):
+class TestSmoke(unittest.TestCase):
     def test_import(self):
         def find_modules(dir, package=None):
             if package is not None:
@@ -87,3 +97,56 @@ class TestCase(unittest.TestCase):
 
         version = package_under_test.__version__
         self.assertTrue(is_canonical(version) or is_dev(version))
+
+
+class TestGit(unittest.TestCase):
+    @staticmethod
+    @contextlib.contextmanager
+    def get_tmp_dir(**mkdtemp_kwargs):
+        tmp_dir = tempfile.mkdtemp(**mkdtemp_kwargs)
+        try:
+            yield tmp_dir
+        finally:
+            shutil.rmtree(tmp_dir)
+
+    @staticmethod
+    @contextlib.contextmanager
+    def get_tmp_git_repo(**mkdtemp_kwargs):
+        with TestGit.get_tmp_dir(**mkdtemp_kwargs) as tmp_git_repo:
+            if git.is_available():
+                git.run("init", cwd=tmp_git_repo)
+            else:
+                os.mkdir(path.join(tmp_git_repo, ".git"))
+            yield tmp_git_repo
+
+    def test_git_is_available_smoke(self):
+        self.assertIsInstance(git.is_available(), bool)
+
+    def test_git_is_repo(self):
+        with self.get_tmp_dir() as no_repo:
+            self.assertFalse(git.is_repo(no_repo))
+
+        with self.get_tmp_git_repo() as repo:
+            self.assertTrue(git.is_repo(repo))
+
+    @skip_if_git_not_available
+    def test_git_is_dirty(self):
+        with self.get_tmp_git_repo() as repo:
+            file = "dirty"
+            open(path.join(repo, file), "wb").close()
+            self.assertFalse(git.is_dirty(repo))
+
+            git.run("add", file, cwd=repo)
+            self.assertTrue(git.is_dirty(repo))
+
+    @skip_if_git_not_available
+    def test_git_hash(self):
+        with self.get_tmp_git_repo() as repo:
+            file = "dirty"
+            open(path.join(repo, file), "wb").close()
+            git.run("add", file, cwd=repo)
+            git.run("config", "user.name", "'git test'", cwd=repo)
+            git.run("config", "user.email", "'git@test.org'", cwd=repo)
+            git.run("commit", "-m", "'test commit'", cwd=repo)
+
+            self.assertIsNotNone(re.match(r"^[0-9a-f]{7}$", git.hash(repo)))

@@ -16,17 +16,16 @@ jobs:
       before_install: skip
       install: pip install isort black flake8
       script:
-        - JOBS=$(nproc)
-        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$JOBS .
+        - flake8 --config=.flake8 --jobs=$(nproc).
     - name: "Project code format"
       install: pip install isort black flake8
       script:
         - JOBS=$(nproc)
-        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$JOBS .
+        - flake8 --config=.flake8 --jobs=$(nproc).
     - name: "Project type checks"
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini

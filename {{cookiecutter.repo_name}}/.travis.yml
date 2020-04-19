@@ -20,3 +20,13 @@ jobs:
       after_success:
         - coverage report
         - codecov
+    - name: "Docs"
+      install: pip install .[doc]
+      before_script: cd docs
+      script:
+        - make html
+        - make latex
+        - make coverage
+      after_success:
+        - cd build/coverage
+        - cat python.txt

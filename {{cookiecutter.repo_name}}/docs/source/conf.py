@@ -26,19 +26,15 @@ PROJECT_ROOT = path.abspath(path.join(path.abspath(path.dirname(__file__)), ".."
 
 pkg_name = "{{cookiecutter.pkg_name}}"
 
-about = {}
+about = {"_PROJECT_ROOT": PROJECT_ROOT}
 with open(path.join(PROJECT_ROOT, pkg_name, "__about__.py"), "r") as fh:
     exec(fh.read(), about)
 
-if about["__name__"] != pkg_name:
-    raise RuntimeError
-
-project = pkg_name
+project = about["__name__"]
 
 copyright = f"{datetime.now().year}, {about['__author__']}"
 author = about["__author__"]
 
-# The full version, including alpha/beta/rc tags
 release = about["__version__"]
 
 
@@ -50,16 +46,17 @@ release = about["__version__"]
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinx.ext.coverage",
     "sphinx_autodoc_typehints",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+# templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+# exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -72,4 +69,4 @@ html_theme = "sphinx_rtd_theme"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+# html_static_path = ["_static"]

@@ -33,3 +33,13 @@ jobs:
       install: pip install .[test] coverage
       script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
       after_success: coverage report
+    - name: "Project docs"
+      install: pip install .[doc]
+      before_script: cd docs
+      script:
+        - make html
+        - make latex
+        - make coverage
+      after_success:
+        - cd build/coverage
+        - cat python.txt

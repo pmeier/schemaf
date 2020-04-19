@@ -39,7 +39,9 @@ dev_requires = (
     *doc_requires,
     *test_requires,
     "pre-commit",
+    "isort",
     "black",
+    "flake8",
 )
 
 extras_require = {

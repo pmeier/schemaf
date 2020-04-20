@@ -6,8 +6,23 @@
 
 # -- Imports -----------------------------------------------------------------
 
+import os
 from datetime import datetime
+from distutils.util import strtobool
 from os import path
+
+# -- Run config --------------------------------------------------------------
+
+
+def get_bool_env_var(name):
+    try:
+        return bool(strtobool(os.environ[name]))
+    except KeyError:
+        return False
+
+
+run_by_travis_ci = get_bool_env_var("TRAVIS")
+run_by_rtd = get_bool_env_var("READTHEDOCS")
 
 # -- Path setup --------------------------------------------------------------
 

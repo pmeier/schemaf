@@ -1,4 +1,4 @@
-from importlib.util import module_from_spec, spec_from_file_location
+from importlib import util
 from os import path
 from setuptools import find_packages, setup
 
@@ -7,14 +7,19 @@ PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
 PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 
-def load_git_module():
-    spec = spec_from_file_location(PACKAGE_NAME, path.join(PACKAGE_ROOT, "_git.py"),)
-    git = module_from_spec(spec)
-    spec.loader.exec_module(git)
-    return git
+def load_module(location):
+    name, ext = path.splitext(path.basename(location))
+    if ext != ".py":
+        location = path.join(location, "__init__.py")
+
+    spec = util.spec_from_file_location(name, location=location)
+    module = util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-git = load_git_module()
+git = load_module(path.join(PACKAGE_ROOT, "_git.py"))
+
 about = {"git": git, "_PROJECT_ROOT": PROJECT_ROOT}
 with open(path.join(PACKAGE_ROOT, "__about__.py"), "r") as fh:
     exec(fh.read(), about)
@@ -68,7 +73,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(
-        where=PROJECT_ROOT, exclude=("docs", "test", "third_party_stubs")
+        where=PROJECT_ROOT, exclude=("docs", "tests", "third_party_stubs")
     ),
     install_requires=install_requires,
     extras_require=extras_require,

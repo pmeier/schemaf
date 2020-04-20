@@ -3,14 +3,22 @@ dist: bionic
 language: python
 python: {{cookiecutter.python_version}}
 
+branches:
+  only:
+    - "master"
+
+before_script:
+  - JOBS=$(nproc)
+  - echo $JOBS
+
 jobs:
   include:
     - name: "Code format"
       install: pip install isort black flake8
       script:
-        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$(nproc) .
+        - flake8 --config=.flake8 --jobs=$JOBS .
     - name: "Type checks"
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini

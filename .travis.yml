@@ -3,6 +3,10 @@ dist: bionic
 language: python
 python: 3.6
 
+branches:
+  only:
+    - "master"
+
 before_install:
   - pip install cookiecutter
   - cd ..
@@ -10,22 +14,26 @@ before_install:
   - cd pmeier_schemaf
   - source .venv/bin/activate
 
+before_script:
+  - JOBS=$(nproc)
+  - echo $JOBS
+
 jobs:
   include:
     - name: "Code format"
       before_install: skip
       install: pip install isort black flake8
       script:
-        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$(nproc).
+        - flake8 --config=.flake8 --jobs=$JOBS.
     - name: "Project code format"
       install: pip install isort black flake8
       script:
         - JOBS=$(nproc)
-        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$(nproc).
+        - flake8 --config=.flake8 --jobs=$JOBS.
     - name: "Project type checks"
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini

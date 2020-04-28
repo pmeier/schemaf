@@ -9,7 +9,7 @@
     :stub-columns: 1
 
     * - package
-      - |license|
+      - |license| |status|
     * - code
       - |black| |code_format| |mypy| |static_typing|
     * - tests
@@ -26,6 +26,11 @@ For installation instructions and usage examples please consult the documentatio
   image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :target: https://opensource.org/licenses/BSD-3-Clause
     :alt: License
+
+.. |status|
+  image:: https://www.repostatus.org/badges/latest/wip.svg
+    :alt: Project Status: WIP
+    :target: https://www.repostatus.org/#wip
 
 .. |black|
   image:: https://img.shields.io/badge/code%20style-black-000000.svg

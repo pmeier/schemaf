@@ -1,0 +1,35 @@
+name: Static typing
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**.py"
+      - "mypy.ini"
+      - ".github/workflows/static_typing.yml"
+
+  pull_request:
+    paths:
+      - "**.py"
+      - "mypy.ini"
+      - ".github/workflows/static_typing.yml"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "{{cookiecutter.python_version}}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install .[type_check]
+
+      - name: Check static typing
+        run: mypy --config-file=mypy.ini

@@ -1,40 +1,27 @@
-os: linux
-dist: bionic
-language: python
-python: {{cookiecutter.python_version}}
-
 branches:
   only:
     - "master"
 
-before_script:
-  - JOBS=$(nproc)
-  - echo $JOBS
+os: linux
+dist: bionic
+
+language: python
+python:
+  - 3.6
+  - 3.7
+  - 3.8
 
 jobs:
+  fast_finish: true
   include:
-    - name: "Code format"
-      install: pip install isort black flake8
-      script:
-        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
-        - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$JOBS .
-    - name: "Type checks"
-      install: pip install .[type_check]
-      script: mypy --config-file=mypy.ini
-    - name: "Tests"
-      install: pip install .[test] coverage codecov
-      script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini --skip-large-download
-      after_success:
-        - coverage report
-        - codecov
-    - name: "Docs"
-      install: pip install .[doc]
-      before_script: cd docs
-      script:
-        - make html
-        - make latex
-        - make coverage
-      after_success:
-        - cd build/coverage
-        - cat python.txt
+    - os: osx
+      language: shell
+
+before_install: chmod +x .ci/install.sh
+install: ./.ci/install.sh
+
+before_script:
+  - chmod +x .ci/test.sh
+  - chmod +x .ci/after_success.sh
+script: ./.ci/test.sh
+after_success: ./.ci/after_success.sh

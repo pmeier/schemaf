@@ -14,34 +14,30 @@ before_install:
   - cd pmeier_schemaf
   - source .venv/bin/activate
 
-before_script:
-  - JOBS=$(nproc)
-  - echo $JOBS
-
 jobs:
   include:
-    - name: "Code format"
+    - name: "Check cookiecutter code format"
       before_install: skip
       install: pip install isort black flake8
       script:
-        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$JOBS.
-    - name: "Project code format"
+        - flake8 --config=.flake8 --jobs=$(nproc) .
+    - name: "Check project code format"
       install: pip install isort black flake8
       script:
         - JOBS=$(nproc)
-        - isort --settings-path=pyproject.toml --check-only --jobs=$JOBS --recursive .
+        - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
         - black --config=pyproject.toml --check .
-        - flake8 --config=.flake8 --jobs=$JOBS.
-    - name: "Project type checks"
+        - flake8 --config=.flake8 --jobs=$(nproc) .
+    - name: "Check project static typing"
       install: pip install .[type_check]
       script: mypy --config-file=mypy.ini
-    - name: "Project tests"
+    - name: "Run project tests"
       install: pip install .[test] coverage
       script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
       after_success: coverage report
-    - name: "Project docs"
+    - name: "Build project docs"
       install: pip install .[doc]
       before_script: cd docs
       script:

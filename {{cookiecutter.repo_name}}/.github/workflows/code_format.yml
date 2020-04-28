@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "**.py"
-      - "pyproject.toml"
-      - ".flake8"
-      - ".github/workflows/code_format.yml"
 
   pull_request:
     paths:
@@ -18,7 +13,7 @@ on:
       - ".github/workflows/code_format.yml"
 
 jobs:
-  check:
+  check_code_format:
     runs-on: ubuntu-latest
 
     steps:

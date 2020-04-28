@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "**.py"
-      - "mypy.ini"
-      - ".github/workflows/static_typing.yml"
 
   pull_request:
     paths:
@@ -16,7 +12,7 @@ on:
       - ".github/workflows/static_typing.yml"
 
 jobs:
-  check:
+  check_static_typing:
     runs-on: ubuntu-latest
 
     steps:

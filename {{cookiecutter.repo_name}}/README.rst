@@ -56,8 +56,8 @@ For installation instructions and usage examples please consult the documentatio
     :alt: Test status on Linux and macOS via Travis CI
 
 .. |windows|
-  image:: https://img.shields.io/appveyor/build/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name}}?label=Windows
-    :target: FIXME
+  image:: https://img.shields.io/appveyor/build/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name.replace("_", "-")}}?label=Windows
+    :target: https://ci.appveyor.com/project/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name.replace("_", "-")}}
     :alt: Test status on Windows via AppVeyor
    
 .. |coverage|

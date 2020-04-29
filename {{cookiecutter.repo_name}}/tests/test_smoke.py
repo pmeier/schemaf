@@ -2,12 +2,12 @@ import contextlib
 import itertools
 import os
 import re
-import shutil
-import tempfile
 import unittest
 from importlib import import_module, util
 from os import path
 from setuptools import find_packages
+
+from .utils import get_tmp_dir
 
 PROJECT_ROOT = path.abspath(path.join(path.dirname(__file__), ".."))
 PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
@@ -102,17 +102,8 @@ class TestSmoke(unittest.TestCase):
 class TestGit(unittest.TestCase):
     @staticmethod
     @contextlib.contextmanager
-    def get_tmp_dir(**mkdtemp_kwargs):
-        tmp_dir = tempfile.mkdtemp(**mkdtemp_kwargs)
-        try:
-            yield tmp_dir
-        finally:
-            shutil.rmtree(tmp_dir)
-
-    @staticmethod
-    @contextlib.contextmanager
     def get_tmp_git_repo(**mkdtemp_kwargs):
-        with TestGit.get_tmp_dir(**mkdtemp_kwargs) as tmp_git_repo:
+        with get_tmp_dir(**mkdtemp_kwargs) as tmp_git_repo:
             if git.is_available():
                 git.run("init", cwd=tmp_git_repo)
             else:
@@ -123,7 +114,7 @@ class TestGit(unittest.TestCase):
         self.assertIsInstance(git.is_available(), bool)
 
     def test_git_is_repo(self):
-        with self.get_tmp_dir() as no_repo:
+        with get_tmp_dir() as no_repo:
             self.assertFalse(git.is_repo(no_repo))
 
         with self.get_tmp_git_repo() as repo:

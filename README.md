@@ -25,8 +25,9 @@ CI is enabled and comprises these features:
     - The name should match the `{{cookiecutter.repo_name}}` variable. 
     - The repository has to be public.
     - You need to grant TravisCI access to the repository 
-4. Run `git push --set-upstream origin master` inside the new repository.
-5. Activate the project on [Read the Docs](https://readthedocs.org/dashboard/import/). You may need to synchronize your account before the new repository shows up.
+4. Activate your project on [AppVeyor](https://ci.appveyor.com/projects/new).
+5. Run `git push --set-upstream origin master` inside the new repository.
+6. Activate the project on [Read the Docs](https://readthedocs.org/dashboard/import/). You may need to synchronize your account before the new repository shows up.
 
 
 ## Post-installation actions

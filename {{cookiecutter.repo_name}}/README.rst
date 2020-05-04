@@ -51,12 +51,12 @@ For installation instructions and usage examples please consult the documentatio
     :alt: Static typing status via GitHub Actions
 
 .. |linux_macos|
-  image:: https://img.shields.io/travis/com/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name}}?label=Linux%20%2F%20macOS
+  image:: https://img.shields.io/travis/com/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name}}?label=Linux%20%2F%20macOS&logo=Travis
     :target: https://travis-ci.com/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name}}
     :alt: Test status on Linux and macOS via Travis CI
 
 .. |windows|
-  image:: https://img.shields.io/appveyor/build/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name.replace("_", "-")}}?label=Windows
+  image:: https://img.shields.io/appveyor/build/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name.replace("_", "-")}}?label=Windows&logo=AppVeyor
     :target: https://ci.appveyor.com/project/{{cookiecutter.github_tag}}/{{cookiecutter.pkg_name.replace("_", "-")}}
     :alt: Test status on Windows via AppVeyor
    

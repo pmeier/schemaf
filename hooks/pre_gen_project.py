@@ -18,7 +18,7 @@ def verify_pkg_name(pkg_name="{{cookiecutter.pkg_name}}"):
     verify(is_valid_variable_name(pkg_name), f"Package name {pkg_name} is not a valid.")
 
 
-def verify_version(version="{{cookiecutter.version}}"):
+def verify_base_version(base_version="{{cookiecutter.base_version}}"):
     # Copied from
     # https://www.python.org/dev/peps/pep-0440/#appendix-b-parsing-version-strings-with-regular-expressions
     def is_canonical(version):
@@ -30,22 +30,14 @@ def verify_version(version="{{cookiecutter.version}}"):
             is not None
         )
 
-    def is_dev(version):
-        match = re.search(r"\+dev([.][\da-f]{7}([.]dirty)?)?$", version)
-        if match is not None:
-            return is_canonical(version[: match.span()[0]])
-        else:
-            return False
-
     verify(
-        is_canonical(version) or is_dev(version),
-        f"Version {version} is not canonical nor dev.",
+        is_canonical(base_version), f"Base version {base_version} is not canonical.",
     )
 
 
 def main():
     verify_pkg_name()
-    verify_version()
+    verify_base_version()
 
 
 if __name__ == "__main__":

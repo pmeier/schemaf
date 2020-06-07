@@ -13,6 +13,10 @@ def run_python_cmd(*args, executable=sys.executable, module=False):
     run_cmd(executable, *args)
 
 
+def run_pip_cmd(*args, python_executable=sys.executable):
+    run_python_cmd("pip", *args, executable=python_executable, module=True)
+
+
 def run_git_cmd(*args, path=None):
     if path is not None:
         args = ("-C", path, *args)
@@ -42,12 +46,15 @@ def create_virtual_environment(
     return path.join(dest, "bin")
 
 
-def install_package_with_dev_requirements(executable):
-    run_python_cmd("pip", "install", "-e", ".[dev]", executable=executable, module=True)
+def install_package_as_editable(python_executable):
+    run_pip_cmd("install", "--editable", ".", python_executable=python_executable)
 
 
-def install_pre_commit_hooks(executable):
-    run_cmd(executable, "install")
+def install_pre_commit_with_hooks(binary_dir, python_executable):
+    run_pip_cmd("install", "pre-commit", python_executable=python_executable)
+
+    pre_commit_executable = path.join(binary_dir, "pre-commit")
+    run_cmd(pre_commit_executable, "install")
 
 
 def main(project_root):
@@ -55,8 +62,8 @@ def main(project_root):
     binary_dir = create_virtual_environment(project_root)
     python_executable = path.join(binary_dir, "python")
 
-    install_package_with_dev_requirements(python_executable)
-    install_pre_commit_hooks(path.join(binary_dir, "pre-commit"))
+    install_package_as_editable(python_executable)
+    install_pre_commit_with_hooks(binary_dir, python_executable)
 
 
 if __name__ == "__main__":

@@ -24,4 +24,5 @@ before_script:
   - chmod +x .ci/test.sh
   - chmod +x .ci/after_success.sh
 script: ./.ci/test.sh
+
 after_success: ./.ci/after_success.sh

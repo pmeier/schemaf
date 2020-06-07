@@ -24,26 +24,22 @@ jobs:
         - black --config=pyproject.toml --check .
         - flake8 --config=.flake8 --jobs=$(nproc) .
     - name: "Check project code format"
-      install: pip install isort black flake8
+      install: pip install -r requirements-lint.txt
       script:
         - JOBS=$(nproc)
         - isort --settings-path=pyproject.toml --check-only --jobs=$(nproc) --recursive .
         - black --config=pyproject.toml --check .
         - flake8 --config=.flake8 --jobs=$(nproc) .
     - name: "Check project static typing"
-      install: pip install .[type_check]
+      install: pip install -r requirements-lint.txt
       script: mypy --config-file=mypy.ini
     - name: "Run project tests"
-      install: pip install .[test] coverage
+      install: pip install -r requirements-test.txt
       script: coverage run --rcfile=.coveragerc -m pytest -c pytest.ini
       after_success: coverage report
     - name: "Build project docs"
-      install: pip install .[doc]
+      install: pip install -r requirements-doc.txt
       before_script: cd docs
       script:
         - make html
         - make latex
-        - make coverage
-      after_success:
-        - cd build/coverage
-        - cat python.txt

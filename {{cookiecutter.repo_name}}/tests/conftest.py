@@ -47,15 +47,15 @@ class MarkConfig:
 
 MARK_CONFIGS = (
     MarkConfig(
-        "large_download",
+        keyword="large_download",
         run_by_default=True,
         reason=(
             "Test possibly includes a large download and --skip-large-download was "
             "given."
         ),
     ),
-    MarkConfig("slow", run_by_default=True),
-    MarkConfig("flaky", run_by_default=False),
+    MarkConfig(keyword="slow", run_by_default=True),
+    MarkConfig(keyword="flaky", run_by_default=False),
 )
 
 

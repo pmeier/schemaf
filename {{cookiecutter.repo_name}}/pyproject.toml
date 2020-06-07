@@ -11,7 +11,6 @@ skip = [
   "__pycache__",
   "docs/build",
 ]
-skip_glob = ["docs/source/auto_*"]
 line_length = {{cookiecutter.line_length}}
 use_parentheses = true
 multi_line_output = 3
@@ -25,7 +24,7 @@ known_standard_library = ["setuptools", "typing_extensions"]
 # https://github.com/psf/black#configuration-format
 
 line-length = {{cookiecutter.line_length}}
-target-version = ["py36"]
+target-version = ["py{{cookiecutter.python_version.replace('.', '')}}"]
 exclude = '''
 /(
     \.git
@@ -35,6 +34,5 @@ exclude = '''
   | \.pytest_cache
   | __pycache__
   | docs/build
-  | docs/source/auto_*
 )/
 '''

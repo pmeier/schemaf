@@ -4,14 +4,16 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-# -- Imports -----------------------------------------------------------------
+# -- Imports ---------------------------------------------------------------------------
 
 import os
 from datetime import datetime
 from distutils.util import strtobool
 from os import path
 
-# -- Run config --------------------------------------------------------------
+import {{cookiecutter.pkg_name}}
+
+# -- Run config ------------------------------------------------------------------------
 
 
 def get_bool_env_var(name, default=False):
@@ -33,7 +35,7 @@ run_by_ci = (
     or get_bool_env_var("CI")
 )
 
-# -- Path setup --------------------------------------------------------------
+# -- Path setup ------------------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -46,23 +48,15 @@ run_by_ci = (
 PROJECT_ROOT = path.abspath(path.join(path.abspath(path.dirname(__file__)), "..", ".."))
 
 
-# -- Project information -----------------------------------------------------
+# -- Project information ---------------------------------------------------------------
 
-pkg_name = "{{cookiecutter.pkg_name}}"
-
-about = {"_PROJECT_ROOT": PROJECT_ROOT}
-with open(path.join(PROJECT_ROOT, pkg_name, "__about__.py"), "r") as fh:
-    exec(fh.read(), about)
-
-project = about["__name__"]
-
-copyright = f"{datetime.now().year}, {about['__author__']}"
-author = about["__author__"]
-
-release = about["__version__"]
+project = {{cookiecutter.pkg_name}}.__name__
+author = {{cookiecutter.pkg_name}}.__author__
+copyright = f"{datetime.now().year}, {author}"
+version = release = {{cookiecutter.pkg_name}}.__version__
 
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration -------------------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -70,8 +64,7 @@ release = about["__version__"]
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
-    "sphinx.ext.coverage",
-    "sphinx_autodoc_typehints",
+    "sphinx.ext.intersphinx",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -83,7 +76,25 @@ extensions = [
 # exclude_patterns = []
 
 
-# -- Options for HTML output -------------------------------------------------
+# -- Config for intersphinx  -----------------------------------------------------------
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3.6", None),
+}
+
+
+# -- Options for Latex / MathJax  ------------------------------------------------------
+
+with open("custom_cmds.tex", "r") as fh:
+    custom_cmds = fh.read()
+
+latex_elements = {"preamble": custom_cmds}
+
+mathjax_inline = [r"\(" + custom_cmds, r"\)"]
+mathjax_display = [r"\[" + custom_cmds, r"\]"]
+
+
+# -- Options for HTML output -----------------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.

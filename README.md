@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) 
-[![Build Status](https://travis-ci.org/pmeier/schemaf.svg?branch=master)](https://travis-ci.org/pmeier/schemaf)
+[![cookiecutter](https://github.com/pmeier/schemaf/workflows/cookiecutter/badge.svg)](https://github.com/pmeier/schemaf/actions?query=workflow%3Acookiecutter)
+[![cookie](https://github.com/pmeier/schemaf/workflows/cookie/badge.svg)](https://github.com/pmeier/schemaf/actions?query=workflow%3Acookie)
 
 
 # schemaf
@@ -12,9 +12,8 @@ The created project comprises an installable but empty Python package with smoke
 CI is enabled and comprises these features:
 
 - Code format ([`isort`](https://timothycrosley.github.io/isort/), [`black`](https://github.com/psf/black) and [`flake8`](https://flake8.pycqa.org/en/latest/)) and static typing ([`mypy`](http://mypy-lang.org/)) is checked via [GitHub Actions](https://github.com/features/actions).
-- Tests on Linux and macOs are run on [Travis CI](https://travis-ci.com)
-- Tests on Windows are run on [AppVeyor](https://www.appveyor.com/)
-- Docs are built and hosted on [Read the Docs](https://readthedocs.org)
+- Tests are run for `python3.[6-8]` on Linux, Windows, and macOS via [GitHub Actions](https://github.com/features/actions).
+- Docs are checked via [GitHub Actions](https://github.com/features/actions) and hosted on [Read the Docs](https://readthedocs.org)
 
 
 ## Usage
@@ -24,8 +23,6 @@ CI is enabled and comprises these features:
 3. Create an empty [GitHub repository](https://github.com/new). 
     - The name should match the `{{cookiecutter.repo_name}}` variable. 
     - The repository has to be public.
-    - You need to grant TravisCI access to the repository 
-4. Activate your project on [AppVeyor](https://ci.appveyor.com/projects/new).
 5. Run `git push --set-upstream origin master` inside the new repository.
 6. Activate the project on [Read the Docs](https://readthedocs.org/dashboard/import/). You may need to synchronize your account before the new repository shows up.
 
@@ -34,16 +31,11 @@ CI is enabled and comprises these features:
 
 Navigate to project `Settings`
 
-1. Navigate to `Options`
-    - `Features`
-        - Uncheck `Wikis`
-        - Uncheck `Projects`
-    - `Merge button`
-        - Uncheck `Allow merge commits`
-        - Uncheck `Allow rebase commits`
-        - Check `Automatically delete head branches`
-2. Navigate to `Branches`
-    - `Add rule` to `Branch protection rules`
-        - `Branch name pattern`: `master`
-        - Check `Requires status checks to pass before merging` and all sub items
-        - Check `Require signed commits`
+Navigate to `Options`
+- `Features`
+  - Uncheck `Wikis`
+  - Uncheck `Projects`
+- `Merge button`
+  - Uncheck `Allow merge commits`
+  - Uncheck `Allow rebase commits`
+  - Check `Automatically delete head branches`

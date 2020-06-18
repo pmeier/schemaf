@@ -1,5 +1,5 @@
 {{cookiecutter.package}}
-========================
+{% for _ in range(cookiecutter.package|length) %}={% endfor %}
 
 {{cookiecutter.description}}
 

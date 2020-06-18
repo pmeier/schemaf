@@ -7,7 +7,7 @@ on:
 
   pull_request:
     paths:
-      - "{{cookiecutter.repo_name}}/**"
+      - "{{cookiecutter.package}}/**"
       - "docs/**"
       - "requirements-dev.txt"
       - ".github/workflows/docs.yml"
@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: latex
-          path: docs/build/latex/{{cookiecutter.repo_name}}.pdf
+          path: docs/build/latex/{{cookiecutter.package}}.pdf

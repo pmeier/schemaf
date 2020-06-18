@@ -1,4 +1,4 @@
-Welcome to {{cookiecutter.repo_name}}'s documentation!
+Welcome to {{cookiecutter.package}}'s documentation!
 ======================================================
 
 .. toctree::

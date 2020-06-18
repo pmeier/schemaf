@@ -48,7 +48,7 @@ def initialize_git(
 
 
 def create_virtual_environment(
-    project_root: str, name: str = ".venv", prompt: str = "{{cookiecutter.repo_name}}"
+    project_root: str, name: str = ".venv", prompt: str = "{{cookiecutter.package}}"
 ) -> str:
     dest = path.join(project_root, name)
     run_python_cmd("virtualenv", dest, "--prompt", f'"({prompt}) "', module=True)

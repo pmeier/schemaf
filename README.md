@@ -21,7 +21,7 @@ CI is enabled and comprises these features:
 1. Install `cookiecutter` with `pip install cookiecutter`
 2. Run `cookiecutter https://github.com/pmeier/schemaf`
 3. Create an empty [GitHub repository](https://github.com/new). 
-    - The name should match the `{{cookiecutter.repo_name}}` variable. 
+    - The name should match the `{{cookiecutter.package}}` variable. 
     - The repository has to be public.
 5. Run `git push --set-upstream origin master` inside the new repository.
 6. Activate the project on [Read the Docs](https://readthedocs.org/dashboard/import/). You may need to synchronize your account before the new repository shows up.

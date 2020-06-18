@@ -7,9 +7,10 @@ on:
 
   pull_request:
     paths:
-      - "{{cookiecutter.repo_name}}"
+      - "{{cookiecutter.package}}"
       - "hooks"
       - "cookiecutter.json"
+      - ".cookiecutterrc-ci"
       - ".github/workflows/cookie.yml"
 
 jobs:

@@ -1,14 +1,14 @@
 {
-  "github_tag": "pmeier",
-  "repo_name": "{{cookiecutter.github_tag}}_schemaf",
-  "repo_slug": "{{cookiecutter.repo_name.replace('_', '-')}}",
-  "description": "Short description of the {{cookiecutter.repo_name}} package.",
+  "package": "my_awesome_package",
+  "slug": "{{cookiecutter.package|slugify}}",
+  "description": "Short description of {{cookiecutter.package}}.",
   "keywords": "",
   "base_version": "0.1.0",
   "is_dev_version": "True",
-  "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.repo_name}}",
-  "author": "Philip Meier",
-  "author_email": "github.pmeier@posteo.de",
+  "github_tag": "mygithubtag",
+  "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.package}}",
+  "author": "My Name",
+  "author_email": "my@email.org",
   "dev_status": "1 - Planning",
   "min_python_version": "3.6"
 }

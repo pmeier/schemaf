@@ -7,7 +7,7 @@ on:
 
   pull_request:
     paths:
-      - "{{cookiecutter.repo_name}}/**"
+      - "{{cookiecutter.package}}/**"
       - "tests/**"
       - "pytest.ini"
       - "tox.ini"

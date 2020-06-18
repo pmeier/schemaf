@@ -1,2 +1,2 @@
 default_context:
-    repo_name: "cookie"
+    package: "cookie"

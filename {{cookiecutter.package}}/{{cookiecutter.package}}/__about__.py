@@ -10,7 +10,7 @@ __all__ = [
     "__author_email__",
 ]
 
-__name__ = "{{cookiecutter.repo_name}}"
+__name__ = "{{cookiecutter.package}}"
 __description__ = "{{cookiecutter.description}}"
 __keywords__ = "{{cookiecutter.keywords}}"
 __base_version__ = "{{cookiecutter.base_version}}"

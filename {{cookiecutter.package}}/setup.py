@@ -3,7 +3,7 @@ from os import path
 from setuptools import find_packages, setup
 
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
-PACKAGE_NAME = "{{cookiecutter.repo_name}}"
+PACKAGE_NAME = "{{cookiecutter.package}}"
 PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 

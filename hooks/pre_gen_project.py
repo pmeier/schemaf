@@ -9,7 +9,7 @@ def verify(expr: bool, msg: str) -> None:
         sys.exit(1)
 
 
-def verify_pkg_name(pkg_name: str = "{{cookiecutter.repo_name}}") -> None:
+def verify_pkg_name(pkg_name: str = "{{cookiecutter.package}}") -> None:
     # Copied from
     # https://stackoverflow.com/a/36331242/1654607
     def is_valid_variable_name(name: str) -> bool:

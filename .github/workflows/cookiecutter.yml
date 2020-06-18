@@ -10,7 +10,8 @@ on:
       - "hooks"
       - "pyproject.toml"
       - ".flake8"
-      - "requirements.txt"
+      - "mypy.ini"
+      - "requirements-dev.txt"
       - ".github/workflows/cookiecutter.yml"
 
 jobs:

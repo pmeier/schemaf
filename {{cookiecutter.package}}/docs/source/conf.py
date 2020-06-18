@@ -11,7 +11,7 @@ from datetime import datetime
 from distutils.util import strtobool
 from os import path
 
-import {{cookiecutter.repo_name}}
+import {{cookiecutter.package}}
 
 # -- Run config ------------------------------------------------------------------------
 
@@ -42,10 +42,10 @@ PROJECT_ROOT = path.abspath(path.join(path.abspath(path.dirname(__file__)), ".."
 
 # -- Project information ---------------------------------------------------------------
 
-project = {{cookiecutter.repo_name}}.__name__
-author = {{cookiecutter.repo_name}}.__author__
+project = {{cookiecutter.package}}.__name__
+author = {{cookiecutter.package}}.__author__
 copyright = f"{datetime.now().year}, {author}"
-version = release = {{cookiecutter.repo_name}}.__version__
+version = release = {{cookiecutter.package}}.__version__
 
 
 # -- General configuration -------------------------------------------------------------

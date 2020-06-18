@@ -1,4 +1,4 @@
-name: lint
+name: cookiecutter
 
 on:
   push:
@@ -7,32 +7,30 @@ on:
 
   pull_request:
     paths:
-      - "**.py"
+      - "hooks"
       - "pyproject.toml"
       - ".flake8"
-      - "mypy.ini"
-      - "tox.ini"
-      - "requirements-dev.txt"
-      - ".github/workflows/lint.yml"
+      - "requirements.txt"
+      - ".github/workflows/cookiecutter.yml"
 
 jobs:
-  check:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Set up python
         uses: actions/setup-python@v2
         with:
-          python-version: "{{cookiecutter.min_python_version}}"
+          python-version: "3.6"
 
-      - name: Upgrade pip and setuptools
-        run: pip install --upgrade pip setuptools
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv
 
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install dev requirements
+      - name: Install development requirements
         run: pip install -r requirements-dev.txt
 
-      - name: Run lint
+      - name: Lint
         run: tox -e lint

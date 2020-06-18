@@ -1,4 +1,4 @@
-{{cookiecutter.pkg_name}}/__version__
+{{cookiecutter.repo_name}}/__version__
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -11,7 +11,7 @@ from datetime import datetime
 from distutils.util import strtobool
 from os import path
 
-import {{cookiecutter.pkg_name}}
+import {{cookiecutter.repo_name}}
 
 # -- Run config ------------------------------------------------------------------------
 
@@ -24,16 +24,8 @@ def get_bool_env_var(name, default=False):
 
 
 run_by_github_actions = get_bool_env_var("GITHUB_ACTIONS")
-run_by_travis_ci = get_bool_env_var("TRAVIS")
-run_by_appveyor = get_bool_env_var("APPVEYOR")
 run_by_rtd = get_bool_env_var("READTHEDOCS")
-run_by_ci = (
-    run_by_github_actions
-    or run_by_travis_ci
-    or run_by_appveyor
-    or run_by_rtd
-    or get_bool_env_var("CI")
-)
+run_by_ci = run_by_github_actions or run_by_rtd or get_bool_env_var("CI")
 
 # -- Path setup ------------------------------------------------------------------------
 
@@ -50,10 +42,10 @@ PROJECT_ROOT = path.abspath(path.join(path.abspath(path.dirname(__file__)), ".."
 
 # -- Project information ---------------------------------------------------------------
 
-project = {{cookiecutter.pkg_name}}.__name__
-author = {{cookiecutter.pkg_name}}.__author__
+project = {{cookiecutter.repo_name}}.__name__
+author = {{cookiecutter.repo_name}}.__author__
 copyright = f"{datetime.now().year}, {author}"
-version = release = {{cookiecutter.pkg_name}}.__version__
+version = release = {{cookiecutter.repo_name}}.__version__
 
 
 # -- General configuration -------------------------------------------------------------

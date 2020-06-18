@@ -1,0 +1,109 @@
+name: cookie
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    paths:
+      - "{{cookiecutter.repo_name}}"
+      - "hooks"
+      - "cookiecutter.json"
+      - ".github/workflows/cookie.yml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.6"
+
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate cookie
+        run: |
+          pip install cookiecutter
+          cookiecutter --config-file=.cookiecutterrc-ci --no-input .
+
+      - name: Install dev requirements
+        working-directory: cookie
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        working-directory: cookie
+        run: tox -e lint
+
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: [3.6, 3.7, 3.8]
+      fail-fast: true
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate cookie
+        run: |
+          pip install cookiecutter
+          cookiecutter --config-file=.cookiecutterrc-ci --no-input .
+
+      - name: Install dev requirements
+        working-directory: cookie
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        working-directory: cookie
+        run: tox -e py -- --skip-large-download
+
+  doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.6"
+
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv
+
+      - name: Install latex requirements
+        run: |
+          sudo apt update -y
+          sudo apt install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate cookie
+        run: |
+          pip install cookiecutter
+          cookiecutter --config-file=.cookiecutterrc-ci --no-input .
+
+      - name: Install dev requirements
+        working-directory: cookie
+        run: pip install -r requirements-dev.txt
+
+      - name: Build documentation
+        working-directory: cookie
+        run: tox -e docs

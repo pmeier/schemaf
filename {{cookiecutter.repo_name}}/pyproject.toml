@@ -8,23 +8,25 @@ skip = [
   ".venv",
   ".mypy_cache",
   ".pytest_cache",
+  ".tox",
   "__pycache__",
   "docs/build",
 ]
-line_length = {{cookiecutter.line_length}}
+line_length = 88
 use_parentheses = true
 multi_line_output = 3
 force_grid_wrap = 0
 include_trailing_comma = true
 
 known_standard_library = ["setuptools", "typing_extensions"]
+known_first_party = ["{cookiecutter.repo_name}}"]
 
 [tool.black]
 # See link below for available options
 # https://github.com/psf/black#configuration-format
 
-line-length = {{cookiecutter.line_length}}
-target-version = ["py{{cookiecutter.python_version.replace('.', '')}}"]
+line-length = 88
+target-version = ["py{{cookiecutter.min_python_version.replace('.', '')}}"]
 exclude = '''
 /(
     \.git
@@ -32,6 +34,7 @@ exclude = '''
   | \.venv
   | \.mypy_cache
   | \.pytest_cache
+  | \.tox
   | __pycache__
   | docs/build
 )/

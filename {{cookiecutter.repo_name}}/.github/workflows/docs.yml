@@ -7,20 +7,23 @@ on:
 
   pull_request:
     paths:
-      - "{{cookiecutter.pkg_name}}/**"
+      - "{{cookiecutter.repo_name}}/**"
       - "docs/**"
-      - "requirements-doc.txt"
+      - "requirements-dev.txt"
       - ".github/workflows/docs.yml"
 
 jobs:
-  build_docs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Set up python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
-          python-version: "{{cookiecutter.python_version}}"
+          python-version: "{{cookiecutter.min_python_version}}"
+
+      - name: Upgrade pip and setuptools
+        run: pip install --upgrade pip setuptools
 
       - name: Install latex requirements
         run: |
@@ -30,15 +33,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install {{cookiecutter.pkg_name}}
-        run: pip install .
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
 
-      - name: Install doc requirements
-        run: pip install -r requirements-doc.txt
-
-      - name: Build html
-        working-directory: docs
-        run: make html
+      - name: Build documentation
+        run: tox -e docs
 
       - name: Upload html build
         uses: actions/upload-artifact@v2
@@ -46,12 +45,8 @@ jobs:
           name: html
           path: docs/build/html
 
-      - name: Build latex
-        working-directory: docs
-        run: make latexpdf
-
       - name: Upload latex build
         uses: actions/upload-artifact@v2
         with:
           name: latex
-          path: docs/build/latex/pystiche.pdf
+          path: docs/build/latex/{{cookiecutter.repo_name}}.pdf

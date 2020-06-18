@@ -1,6 +1,7 @@
 __all__ = [
     "__name__",
     "__description__",
+    "__keywords__",
     "__base_version__",
     "__is_dev_version__",
     "__url__",
@@ -9,8 +10,9 @@ __all__ = [
     "__author_email__",
 ]
 
-__name__ = "{{cookiecutter.pkg_name}}"
+__name__ = "{{cookiecutter.repo_name}}"
 __description__ = "{{cookiecutter.description}}"
+__keywords__ = "{{cookiecutter.keywords}}"
 __base_version__ = "{{cookiecutter.base_version}}"
 __is_dev_version__ = {{cookiecutter.is_dev_version}}
 __url__ = "{{cookiecutter.url}}"

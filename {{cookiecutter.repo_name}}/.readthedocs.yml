@@ -6,8 +6,8 @@ sphinx:
 formats: all
 
 python:
-  version: {{cookiecutter.python_version}}
+  version: {{cookiecutter.min_python_version}}
   install:
+    - requirements: docs/requirements-rtd.txt
     - method: pip
       path: .
-    - requirements: requirements-doc.txt

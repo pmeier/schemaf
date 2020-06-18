@@ -1,5 +1,5 @@
-Welcome to {{cookiecutter.pkg_name}}'s documentation!
-=====================================================
+Welcome to {{cookiecutter.repo_name}}'s documentation!
+======================================================
 
 .. toctree::
   :maxdepth: 2

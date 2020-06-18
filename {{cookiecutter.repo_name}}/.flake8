@@ -10,11 +10,12 @@ exclude =
     .venv,
     .mypy_cache,
     .pytest_cache,
+    .tox,
     __pycache__,
     *.pyc,
     docs/build,
 ignore = E203, E501, W503
-max-line-length = {{cookiecutter.line_length}}
+max-line-length = 88
 per-file-ignores =
     __init__.py: F401, F403, F405
 show_source = True

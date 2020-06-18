@@ -3,7 +3,7 @@ from os import path
 from setuptools import find_packages, setup
 
 PROJECT_ROOT = path.abspath(path.dirname(__file__))
-PACKAGE_NAME = "{{cookiecutter.pkg_name}}"
+PACKAGE_NAME = "{{cookiecutter.repo_name}}"
 PACKAGE_ROOT = path.join(PROJECT_ROOT, PACKAGE_NAME)
 
 
@@ -44,8 +44,9 @@ def get_version():
     __version__ += "+dev"
 
     git = Git()
-    if not git.is_available() and not git.is_repo(PROJECT_ROOT):
+    if not (git.is_available() and git.is_repo(PROJECT_ROOT)):
         return __version__
+
     __version__ += f".{git.hash(PROJECT_ROOT)}"
 
     if not git.is_dirty(PROJECT_ROOT):
@@ -60,7 +61,7 @@ version_file = "__version__"
 
 with open(path.join(PACKAGE_ROOT, version_file), "w") as fh:
     fh.write(__version__)
-package_data = {PACKAGE_NAME: [version_file]}
+package_data = {PACKAGE_NAME: [version_file, "py.typed"]}
 
 classifiers = (
     "Development Status :: {{cookiecutter.dev_status}}",
@@ -71,6 +72,7 @@ classifiers = (
 setup(
     name=about["__name__"],
     description=about["__description__"],
+    keywords=about["__keywords__"],
     version=__version__,
     url=about["__url__"],
     license=about["__license__"],
@@ -78,10 +80,8 @@ setup(
     author_email=about["__author_email__"],
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    packages=find_packages(
-        where=PROJECT_ROOT, exclude=("docs", "tests", ".ci", ".github")
-    ),
+    packages=find_packages(where=PROJECT_ROOT, exclude=("docs", "tests", ".github")),
     package_data=package_data,
-    python_requires=">={{cookiecutter.minimum_python_version}}",
+    python_requires=">={{cookiecutter.min_python_version}}",
     classifiers=classifiers,
 )

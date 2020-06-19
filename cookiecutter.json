@@ -2,7 +2,7 @@
   "package": "my_awesome_package",
   "slug": "{{cookiecutter.package|slugify}}",
   "description": "Short description of {{cookiecutter.package}}.",
-  "keywords": "",
+  "keywords": "cookiecutter",
   "base_version": "0.1.0",
   "is_dev_version": "True",
   "github_tag": "mygithubtag",

@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python: [3.6, 3.7, 3.8]
+        python: [{% for minor in range(cookiecutter.min_python_version[-1]|int, cookiecutter.max_python_version[-1]|int + 1) %}'3.{{minor}}'{{', ' if not loop.last }}{% endfor %}]
       fail-fast: true
 
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}

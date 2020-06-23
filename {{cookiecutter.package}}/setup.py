@@ -63,13 +63,14 @@ with open(path.join(PACKAGE_ROOT, version_file), "w") as fh:
     fh.write(__version__)
 package_data = {PACKAGE_NAME: [version_file, "py.typed"]}
 
-classifiers = (
+classifiers = [
     "Development Status :: {{cookiecutter.dev_status}}",
     "License :: OSI Approved :: BSD License",
     {%- for minor in range(cookiecutter.min_python_version[-1]|int, cookiecutter.max_python_version[-1]|int + 1) %}
     "Programming Language :: Python :: 3.{{minor}}",
     {%- endfor %}
-)
+    "Typing :: Typed",
+]
 
 setup(
     name=about["__name__"],

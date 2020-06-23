@@ -1,0 +1,34 @@
+name: publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "{{cookiecutter.min_python_version}}"
+
+      - name: Upgrade pip
+        run: pip install --upgrade pip
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install requirements
+        run: pip install setuptools wheel twine
+
+      - name: Build tarball and wheel
+        run: python setup.py sdist bdist_wheel
+
+      - name: Upload to PyPI
+        env:
+          TWINE_REPOSITORY: pypi
+          TWINE_USERNAME: {% raw %}${{ secrets.PYPI_USERNAME }}{% endraw %}
+          TWINE_PASSWORD: {% raw %}${{ secrets.PYPI_PASSWORD }}{% endraw %}
+        run: twine upload dist/*

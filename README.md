@@ -11,10 +11,16 @@ The created project comprises an installable but empty Python package with smoke
 
 CI is enabled and comprises these features:
 
-- Code format ([`isort`](https://timothycrosley.github.io/isort/), [`black`](https://github.com/psf/black) and [`flake8`](https://flake8.pycqa.org/en/latest/)) and static typing ([`mypy`](http://mypy-lang.org/)) is checked via [GitHub Actions](https://github.com/features/actions).
-- Tests are run for `python3.[6-8]` on Linux, Windows, and macOS via [GitHub Actions](https://github.com/features/actions).
-- Docs are checked via [GitHub Actions](https://github.com/features/actions) and hosted on [Read the Docs](https://readthedocs.org)
-
+- Code format ([`isort`](https://timothycrosley.github.io/isort/), [`black`](https://github.com/psf/black) and [`flake8`](https://flake8.pycqa.org/en/latest/)) and static typing ([`mypy`](http://mypy-lang.org/)) is checked for every PR via [GitHub Actions](https://github.com/features/actions).
+- Tests are run for every PR for `python3.[6-8]` on Linux, Windows, and macOS via [GitHub Actions](https://github.com/features/actions).
+- Docs are checked for every PR via [GitHub Actions](https://github.com/features/actions) and hosted on [Read the Docs](https://readthedocs.org)
+- Everytime a branch is pushed to `releases/*` it is checked if it is publishable by uploading it to [TestPyPI](https://test.pypi.org/). If a release is created via GitHub, it is uploaded to [PyPI](https://pypi.org/). Make sure to set 
+  - `TESTPYPI_USERNAME`
+  - `TESTPYPI_PASSWORD`
+  - `PYPI_USERNAME`
+  - `PYPI_PASSWORD`
+  
+  in `Settings/Secrets`.
 
 ## Usage
 
@@ -29,9 +35,7 @@ CI is enabled and comprises these features:
 
 ## Post-installation actions
 
-Navigate to project `Settings`
-
-Navigate to `Options`
+Navigate to project `Settings/Options`
 - `Features`
   - Uncheck `Wikis`
   - Uncheck `Projects`

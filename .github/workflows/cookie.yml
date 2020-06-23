@@ -24,7 +24,7 @@ jobs:
           python-version: "3.6"
 
       - name: Upgrade and install additional system packages
-        run: pip install --upgrade pip setuptools virtualenv
+        run: pip install --upgrade pip setuptools virtualenv wheel
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -58,7 +58,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Upgrade and install additional system packages
-        run: pip install --upgrade pip setuptools virtualenv
+        run: pip install --upgrade pip setuptools virtualenv wheel
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -86,7 +86,7 @@ jobs:
           python-version: "3.6"
 
       - name: Upgrade and install additional system packages
-        run: pip install --upgrade pip setuptools virtualenv
+        run: pip install --upgrade pip setuptools virtualenv wheel
 
       - name: Install latex requirements
         run: |

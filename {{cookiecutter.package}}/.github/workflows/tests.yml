@@ -10,6 +10,7 @@ on:
     paths:
       - "{{cookiecutter.package}}/**"
       - "tests/**"
+      - "setup.py"
       - "pytest.ini"
       - "tox.ini"
       - "codecov.yml"
@@ -35,8 +36,8 @@ jobs:
         with:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
 
-      - name: Upgrade pip and setuptools
-        run: pip install --upgrade pip setuptools
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv wheel
 
       - name: Checkout repository
         uses: actions/checkout@v2

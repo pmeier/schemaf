@@ -10,6 +10,8 @@ on:
     paths:
       - "{{cookiecutter.package}}/**"
       - "docs/**"
+      - "setup.py"
+      - "tox.ini"
       - "requirements-dev.txt"
       - ".github/workflows/docs.yml"
 
@@ -23,8 +25,8 @@ jobs:
         with:
           python-version: "{{cookiecutter.min_python_version}}"
 
-      - name: Upgrade pip and setuptools
-        run: pip install --upgrade pip setuptools
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv wheel
 
       - name: Install latex requirements
         run: |

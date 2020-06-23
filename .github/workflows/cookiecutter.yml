@@ -7,10 +7,11 @@ on:
 
   pull_request:
     paths:
-      - "hooks"
+      - "hooks/**"
       - "pyproject.toml"
       - ".flake8"
       - "mypy.ini"
+      - "tox.ini"
       - "requirements-dev.txt"
       - ".github/workflows/cookiecutter.yml"
 

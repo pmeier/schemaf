@@ -5,3 +5,4 @@ Welcome to {{cookiecutter.package}}'s documentation!
   :maxdepth: 2
 
   Getting Started <getting_started>
+  Contributing <contributing>

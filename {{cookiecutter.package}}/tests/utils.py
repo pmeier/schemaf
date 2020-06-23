@@ -2,8 +2,10 @@ import contextlib
 import os
 import shutil
 import tempfile
+from importlib import util
+from os import path
 
-__all__ = ["get_tmp_dir"]
+__all__ = ["get_tmp_dir", "load_module"]
 
 
 # Copied from
@@ -36,3 +38,15 @@ def get_tmp_dir(**mkdtemp_kwargs):
         yield tmp_dir
     finally:
         shutil.rmtree(tmp_dir, onerror=onerror)
+
+
+def load_module(location):
+    name, ext = path.splitext(path.basename(location))
+    is_package = ext != ".py"
+    if is_package:
+        location = path.join(location, "__init__.py")
+
+    spec = util.spec_from_file_location(name, location=location)
+    module = util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module

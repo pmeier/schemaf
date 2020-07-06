@@ -1,6 +1,7 @@
 import itertools
 import os
 import re
+from datetime import datetime
 from importlib import import_module
 from os import path
 from setuptools import find_packages
@@ -52,8 +53,8 @@ def test_about(subtests, package_under_test):
     for attr in (
         "name",
         "description",
+        "version",
         "keywords",
-        "base_version",
         "url",
         "license",
         "author",
@@ -62,16 +63,12 @@ def test_about(subtests, package_under_test):
         with subtests.test(attr=attr):
             assert isinstance(getattr(package_under_test, f"__{attr}__"), str)
 
-    attr = "is_dev_version"
-    with subtests.test(attr=attr):
-        assert isinstance(getattr(package_under_test, f"__{attr}__"), bool)
-
 
 def test_name(package_under_test):
     assert package_under_test.__name__ == PACKAGE_NAME
 
 
-def test_version(subtests, package_under_test):
+def test_version(package_under_test):
     def is_canonical(version):
         # Copied from
         # https://www.python.org/dev/peps/pep-0440/#appendix-b-parsing-version-strings-with-regular-expressions
@@ -84,16 +81,18 @@ def test_version(subtests, package_under_test):
         )
 
     def is_dev(version):
-        match = re.search(r"\+dev([.][\da-f]{7}([.]dirty)?)?$", version)
-        if match is not None:
-            return is_canonical(version[: match.span()[0]])
-        else:
+        match = re.search(r"[.]dev\d+\+g[\da-f]{7}(?P<dirty>[.]d\d{14})?$", version)
+        if match is None:
             return False
 
-    with subtests.test():
-        base_version = package_under_test.__base_version__
-        assert is_canonical(base_version)
+        dirty = match.group("dirty")
+        if dirty is not None:
+            try:
+                datetime.strptime(dirty[2:], "%Y%m%d%H%M%S")
+            except ValueError:
+                return False
 
-    with subtests.test():
-        version = package_under_test.__version__
-        assert is_canonical(version) or is_dev(version)
+        return is_canonical(version[: match.span()[0]])
+
+    version = package_under_test.__version__
+    assert is_canonical(version) or is_dev(version)

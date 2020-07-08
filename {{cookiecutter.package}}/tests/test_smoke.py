@@ -28,3 +28,7 @@ def test_importability(subtests):
                 importlib.import_module(name)
             except Exception:
                 onerror(name)
+
+
+def test_version_availability():
+    assert isinstance(package_under_test.__version__, str)

@@ -38,26 +38,23 @@ To format your code run
   cd ${{cookiecutter.package.upper()}}_ROOT
   tox -e format
 
-To run the lint check locally run
+.. note::
+
+  The formatting with ``isort``, ``black``, as well as other minor utilities can be
+  performed by `pre-commit <https://pre-commit.com/>`_ before every commit.
+  ``pre-commit`` is installed as development requirement. To enable this behavior run
+
+  .. code-block:: sh
+
+    cd ${{cookiecutter.package.upper()}}_ROOT
+    pre-commit install
+
+To run the full lint check locally run
 
 .. code-block:: sh
 
   cd ${{cookiecutter.package.upper()}}_ROOT
   tox -e lint
-
-.. note::
-
-  The checks with ``isort``, ``black``, and ``flake8`` can be executed as a pre-commit
-  hook. You can install them with:
-
-  .. code-block:: sh
-
-    pip install pre-commit
-    cd ${{cookiecutter.package.upper()}}_ROOT
-    pre-commit install
-
-  ``mypy`` is excluded from this, since the pre-commit runs in a separate virtual
-  environment in which ``{{cookiecutter.package}}`` would have to be installed in for every commit.
 
 
 Tests

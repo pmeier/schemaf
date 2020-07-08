@@ -40,7 +40,9 @@ jobs:
 
       - name: Lint
         working-directory: cookie
-        run: tox -e lint
+        run: |
+          git checkout -b lint
+          tox -e lint
 
   tests:
     strategy:

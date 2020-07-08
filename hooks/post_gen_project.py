@@ -3,7 +3,7 @@ import sys
 import warnings
 from os import path
 from platform import system as _system
-from typing import Optional
+from typing import Iterable, Optional
 
 
 def run_cmd(executable: str, *args: str) -> None:
@@ -65,10 +65,11 @@ def get_python_executable(virtual_environment: str) -> str:
         raise RuntimeError(f"Unknown system {system}.")
 
 
-def upgrade_pip_and_setuptools(python_executable: str) -> None:
-    run_pip_cmd(
-        "install", "--upgrade", "pip", "setuptools", python_executable=python_executable
-    )
+def upgrade_system_packages(
+    python_executable: str,
+    packages: Iterable[str] = ("pip", "setuptools", "virtualenv", "wheel"),
+) -> None:
+    run_pip_cmd("install", "--upgrade", *packages, python_executable=python_executable)
 
 
 def install_dev_requirements(
@@ -92,7 +93,7 @@ def main(project_root: str) -> None:
         return
 
     python_executable = get_python_executable(virtual_environment)
-    upgrade_pip_and_setuptools(python_executable)
+    upgrade_system_packages(python_executable)
     install_dev_requirements(python_executable, project_root)
 
 

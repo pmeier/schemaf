@@ -23,12 +23,12 @@ Below you can find details and instructions how to run the checks locally.
 Code format and linting
 -----------------------
 
-``{{cookiecutter.package}}`` uses `isort <https://timothycrosley.github.io/isort/>`_ to sort the
+``{{cookiecutter.slug}}`` uses `isort <https://timothycrosley.github.io/isort/>`_ to sort the
 imports, `black <https://black.readthedocs.io/en/stable/>`_ to format the code, and
 `flake8 <https://flake8.pycqa.org/en/latest/>`_ to enforce
 `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ compliance.
 
-Furthermore, ``{{cookiecutter.package}}`` is `PEP561 <https://www.python.org/dev/peps/pep-0561/>`_
+Furthermore, ``{{cookiecutter.slug}}`` is `PEP561 <https://www.python.org/dev/peps/pep-0561/>`_
 compliant and checks the type annotations with `mypy <http://mypy-lang.org/>`_ .
 
 To format your code run
@@ -70,7 +70,7 @@ You can run it locally with
 
 .. note::
 
-  ``{{cookiecutter.package}}`` adds the following custom options with the
+  ``{{cookiecutter.slug}}`` adds the following custom options with the
   corresponding ``@pytest.mark.*`` decorators:
   - ``--skip-large-download``: ``@pytest.mark.large_download``
   - ``--skip-slow``: ``@pytest.mark.slow``

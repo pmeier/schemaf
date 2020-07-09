@@ -11,7 +11,7 @@ from datetime import datetime
 from distutils.util import strtobool
 from os import path
 
-import {{cookiecutter.package}}
+from importlib_metadata import metadata
 
 # -- Run config ------------------------------------------------------------------------
 
@@ -42,10 +42,13 @@ PROJECT_ROOT = path.abspath(path.join(path.abspath(path.dirname(__file__)), ".."
 
 # -- Project information ---------------------------------------------------------------
 
-project = {{cookiecutter.package}}.__name__
-author = {{cookiecutter.package}}.__author__
+meta = metadata("{{cookiecutter.package}}")
+
+project = meta["name"]
+author = meta["author"]
 copyright = f"{datetime.now().year}, {author}"
-version = release = {{cookiecutter.package}}.__version__
+release = meta["version"]
+version = ".".join(release.split(".")[:2])
 
 
 # -- General configuration -------------------------------------------------------------

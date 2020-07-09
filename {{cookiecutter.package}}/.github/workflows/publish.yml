@@ -21,11 +21,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build tarball and wheel
-        run: python setup.py sdist bdist_wheel
+      - name: Install pep517 and twine
+        run: pip install pep517 twine
 
-      - name: Install twine
-        run: pip install twine
+      - name: Build source and binary
+        run: python -m pep517.build --source --binary .
 
       - name: Check README
         run: twine check dist/*

@@ -1,3 +1,19 @@
+[build-system]
+requires = [
+  "setuptools>=42",
+  "wheel",
+  "setuptools_scm[toml]>=3.4"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+# See link below for available options
+# https://github.com/pypa/setuptools_scm/#configuration-parameters
+
+write_to = "{{cookiecutter.package}}/_version.py"
+version_scheme = "release-branch-semver"
+local_scheme = "node-and-timestamp"
+
 [tool.isort]
 # See link below for available options
 # https://github.com/timothycrosley/isort/wiki/isort-Settings#full-reference-of-isort-settings

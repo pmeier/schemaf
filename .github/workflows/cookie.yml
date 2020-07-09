@@ -78,6 +78,37 @@ jobs:
         working-directory: cookie
         run: tox -e py -- --skip-large-download
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.6"
+
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv wheel
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate cookie
+        run: |
+          pip install cookiecutter
+          cookiecutter --config-file=.cookiecutterrc-ci --no-input .
+
+      - name: Install pep517
+        run: pip install pep517
+
+      - name: Build source
+        working-directory: cookie
+        run: python -m pep517.build --source .
+
+      - name: Build binary
+        working-directory: cookie
+        run: python -m pep517.build --binary .
+
   doc:
     runs-on: ubuntu-latest
 

@@ -4,7 +4,7 @@
   "description": "Short description of {{cookiecutter.package}}",
   "keywords": "cookiecutter",
   "github_tag": "mygithubtag",
-  "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.package}}",
+  "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.slug}}",
   "author": "My Name",
   "author_email": "my@email.org",
   "dev_status": [

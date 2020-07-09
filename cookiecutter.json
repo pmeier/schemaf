@@ -1,13 +1,19 @@
 {
   "package": null,
   "slug": "{{cookiecutter.package|slugify}}",
-  "description": "Short description of {{cookiecutter.package}}.",
+  "description": "Short description of {{cookiecutter.package}}",
   "keywords": "cookiecutter",
   "github_tag": "mygithubtag",
   "url": "https://github.com/{{cookiecutter.github_tag}}/{{cookiecutter.package}}",
   "author": "My Name",
   "author_email": "my@email.org",
-  "dev_status": "3 - Alpha",
+  "dev_status": [
+    "1 - Planning",
+    "2 - Pre-Alpha",
+    "3 - Alpha",
+    "4 - Beta",
+    "5 - Production/Stable"
+  ],
   "min_python_version": "3.6",
   "max_python_version": "3.8"
 }

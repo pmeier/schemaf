@@ -55,12 +55,12 @@ def create_virtual_environment(
     return dest
 
 
-def get_python_executable(virtual_environment: str) -> str:
+def get_executable(name: str, virtual_environment: str) -> str:
     system = _system()
     if system in ("Linux", "Darwin"):
-        return path.join(virtual_environment, "bin", "python")
+        return path.join(virtual_environment, "bin", name)
     elif system == "Windows":
-        return path.join(virtual_environment, "Scripts", "python.exe")
+        return path.join(virtual_environment, "Scripts", f"{name}.exe")
     else:
         raise RuntimeError(f"Unknown system {system}.")
 
@@ -83,6 +83,10 @@ def install_dev_requirements(
     )
 
 
+def install_pre_commit_hooks(pre_commit_executable: str) -> None:
+    run_cmd(pre_commit_executable, "install")
+
+
 def main(project_root: str) -> None:
     initialize_git(project_root)
 
@@ -92,9 +96,12 @@ def main(project_root: str) -> None:
         warnings.warn("virtualenv is not available. Skipping initialization.")
         return
 
-    python_executable = get_python_executable(virtual_environment)
+    python_executable = get_executable("python", virtual_environment)
     upgrade_system_packages(python_executable)
     install_dev_requirements(python_executable, project_root)
+
+    pre_commit_executable = get_executable("pre-commit", virtual_environment)
+    install_pre_commit_hooks(pre_commit_executable)
 
 
 if __name__ == "__main__":

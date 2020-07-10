@@ -1,8 +1,6 @@
 {{cookiecutter.slug}}
 {% for _ in range(cookiecutter.slug|length) %}={% endfor %}
 
-{{cookiecutter.description}}
-
 .. start-badges
 
 .. list-table::
@@ -18,6 +16,8 @@
       - |docs| |rtd|
 
 .. end-badges
+
+{{cookiecutter.description}}
 
 For installation instructions and usage examples please consult the documentation
 `hosted on readthedocs.com <https://{{cookiecutter.slug}}.readthedocs.io/en/latest>`_ .
@@ -53,8 +53,8 @@ For installation instructions and usage examples please consult the documentatio
     :alt: Test status via GitHub Actions
 
 .. |coverage|
-  image:: https://codecov.io/gh/{{cookiecutter.github_tag}}/{{cookiecutter.package}}/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/{{cookiecutter.github_tag}}/{{cookiecutter.package}}
+  image:: https://codecov.io/gh/{{cookiecutter.github_tag}}/{{cookiecutter.slug}}/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/{{cookiecutter.github_tag}}/{{cookiecutter.slug}}
     :alt: Test coverage via codecov.io
 
 .. |docs|

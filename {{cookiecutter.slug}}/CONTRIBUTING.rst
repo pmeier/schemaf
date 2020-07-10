@@ -8,16 +8,20 @@ without further discussion. If you planning to contribute new features, please o
 `issue <{{cookiecutter.url}}/issues>`_
 and discuss the feature with us first.
 
-Every PR is subjected to multiple checks that it has to pass before it can be merged.
-The checks are performed by `tox <https://tox.readthedocs.io/en/latest/>`_ . You can
-install it alongside all other development requirements with
+To start working on ``{{cookiecutter.slug}}`` clone from the latest version and install 
+the development requirements:
 
 .. code-block:: sh
 
-  cd ${{cookiecutter.package.upper()}}_ROOT
+  {{cookiecutter.slug.upper()}}_ROOT = {{cookiecutter.slug}}
+  git clone {{cookiecutter.url}} ${{cookiecutter.slug.upper()}}_ROOT
+  cd ${{cookiecutter.slug.upper()}}_ROOT
   pip install -r requirements-dev.txt
+  pre-commit install
 
-Below you can find details and instructions how to run the checks locally.
+Every PR is subjected to multiple checks that it has to pass before it can be merged.
+The checks are performed by `tox <https://tox.readthedocs.io/en/latest/>`_ . Below
+you can find details and instructions how to run the checks locally.
 
 
 Code format and linting
@@ -35,37 +39,31 @@ To format your code run
 
 .. code-block:: sh
 
-  cd ${{cookiecutter.package.upper()}}_ROOT
+  cd ${{cookiecutter.slug.upper()}}_ROOT
   tox -e format
 
 .. note::
 
-  The formatting with ``isort``, ``black``, as well as other minor utilities can be
-  performed by `pre-commit <https://pre-commit.com/>`_ before every commit.
-  ``pre-commit`` is installed as development requirement. To enable this behavior run
-
-  .. code-block:: sh
-
-    cd ${{cookiecutter.package.upper()}}_ROOT
-    pre-commit install
+  Amongst others, ``isort`` and ``black`` are run by
+  `pre-commit <https://pre-commit.com/>`_ before every commit.
 
 To run the full lint check locally run
 
 .. code-block:: sh
 
-  cd ${{cookiecutter.package.upper()}}_ROOT
+  cd ${{cookiecutter.slug.upper()}}_ROOT
   tox -e lint
 
 
 Tests
 -----
 
-``pystiche`` uses `pytest <https://docs.pytest.org/en/stable/>`_ to run the test suite.
-You can run it locally with
+``{{cookiecutter.slug}}`` uses `pytest <https://docs.pytest.org/en/stable/>`_ to run
+the test suite. You can run it locally with
 
 .. code-block:: sh
 
-  cd ${{cookiecutter.package.upper()}}_ROOT
+  cd ${{cookiecutter.slug.upper()}}_ROOT
   tox
 
 .. note::
@@ -85,7 +83,7 @@ You can run it locally with
 
   .. code-block:: sh
 
-    cd ${{cookiecutter.package.upper()}}_ROOT
+    cd ${{cookiecutter.slug.upper()}}_ROOT
     tox -- --skip-large-download
 
 
@@ -96,5 +94,5 @@ To build the html and latex documentation locally, run
 
 .. code-block:: sh
 
-  cd ${{cookiecutter.package.upper()}}_ROOT
+  cd ${{cookiecutter.slug.upper()}}_ROOT
   tox -e docs

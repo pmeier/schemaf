@@ -1,13 +1,23 @@
-name: publish
+name: publishable
 
 on:
   push:
     branches:
+      - master
       - releases/*
 
   pull_request:
     paths:
-      - ".github/pretend_publish_version.py"
+      - "{{cookiecutter.package}}/**"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - ".gitignore"
+      - "CONTRIBUTING.rst"
+      - "LICENSE"
+      - "MANIFEST.in"
+      - "README.rst"
+      - "tox.ini"
+      - "requirements-dev.txt"
       - ".github/workflows/publishable.yml"
 
 jobs:
@@ -26,21 +36,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install pep517 and twine
-        run: pip install pep517 twine
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
 
-      - name: Build source and binary with pretended version
-        run: |
-          pip install setuptools_scm[toml]
-          export SETUPTOOLS_SCM_PRETEND_VERSION=$(python .github/pretend_publish_version.py)
-          python -m pep517.build --source --binary .
-
-      - name: Check README
-        run: twine check dist/*
-
-      - name: Upload to TestPyPI
-        env:
-          TWINE_REPOSITORY: testpypi
-          TWINE_USERNAME: {% raw %}${{ secrets.TESTPYPI_USERNAME }}{% endraw %}
-          TWINE_PASSWORD: {% raw %}${{ secrets.TESTPYPI_PASSWORD }}{% endraw %}
-        run: twine upload dist/*
+      - name: Run unit tests
+        run: tox -e publishable

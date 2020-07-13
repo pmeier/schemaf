@@ -10,7 +10,7 @@ on:
     paths:
       - "{{cookiecutter.package}}/**"
       - "tests/**"
-      - "setup.py"
+      - "setup.cfg"
       - "pytest.ini"
       - "tox.ini"
       - ".coveragerc"

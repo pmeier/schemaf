@@ -65,9 +65,13 @@ def get_executable(name: str, virtual_environment: str) -> str:
         raise RuntimeError(f"Unknown system {system}.")
 
 
-def upgrade_system_packages(
+def upgrade_pip(python_executable):
+    run_pip_cmd("install", "--upgrade", "pip", python_executable=python_executable)
+
+
+def install_or_upgrade_system_packages(
     python_executable: str,
-    packages: Iterable[str] = ("pip", "setuptools", "virtualenv", "wheel"),
+    packages: Iterable[str] = ("setuptools", "virtualenv", "wheel"),
 ) -> None:
     run_pip_cmd("install", "--upgrade", *packages, python_executable=python_executable)
 
@@ -97,7 +101,8 @@ def main(project_root: str) -> None:
         return
 
     python_executable = get_executable("python", virtual_environment)
-    upgrade_system_packages(python_executable)
+    upgrade_pip(python_executable)
+    install_or_upgrade_system_packages(python_executable)
     install_dev_requirements(python_executable, project_root)
 
     pre_commit_executable = get_executable("pre-commit", virtual_environment)

@@ -11,7 +11,6 @@ on:
       - "pyproject.toml"
       - ".flake8"
       - "mypy.ini"
-      - "tox.ini"
       - "requirements-dev.txt"
       - ".github/workflows/cookiecutter.yml"
 
@@ -31,8 +30,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install development requirements
-        run: pip install -r requirements-dev.txt
+      - name: Install requirements
+        run: pip install black "flake8>3.8" "isort>5.3"
 
-      - name: Lint
-        run: tox -e lint
+      - name: isort
+        run: isort --settings-path=pyproject.toml --check-only .
+
+      - name: black
+        run: black --config=pyproject.toml --check .
+
+      - name: flake8
+        run: flake8 --config=.flake8

@@ -10,7 +10,7 @@ exclude =
     .venv,
     .tox,
     .mypy_cache,
-    {{cookiecutter.package}}
+    {{cookiecutter.slug}}
 ignore = E203, E501, W503
 max-line-length = 88
 per-file-ignores =

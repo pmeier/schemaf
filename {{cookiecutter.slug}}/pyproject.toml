@@ -38,16 +38,3 @@ known_first_party = ["{{cookiecutter.package}}"]
 
 line-length = 88
 target-version = [{% for minor in range(cookiecutter.min_python_version[-1]|int, cookiecutter.max_python_version[-1]|int + 1) %}'py3{{minor}}'{{', ' if not loop.last }}{% endfor %}]
-exclude = '''
-/(
-    \.git
-  | \.github
-  | \.venv
-  | \.eggs
-  | \.mypy_cache
-  | \.pytest_cache
-  | \.tox
-  | __pycache__
-  | docs/build
-)/
-'''

@@ -2,10 +2,10 @@ import configparser
 from os import path
 
 
-def extract_requirements(root, file="tox.ini"):
+def extract_requirements(root, file="tox.ini", section="docs-common"):
     config = configparser.ConfigParser()
     config.read(path.join(root, "..", file))
-    return config["testenv:docs"]["deps"].strip().split("\n")
+    return config[section]["deps"].strip().split("\n")
 
 
 def write_requirements_file(root, requirements, file="requirements-rtd.txt"):

@@ -17,7 +17,7 @@ on:
       - ".github/workflows/lint.yml"
 
 jobs:
-  check:
+  style:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,33 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Create environment
-        run: tox -e lint --notest
+        run: tox -e lint-style --notest
 
       - name: Run lint
-        run: tox -e lint
+        run: tox -e lint-style
+
+  typing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "{{cookiecutter.min_python_version}}"
+
+      - name: Upgrade and install additional system packages
+        run: pip install --upgrade pip setuptools virtualenv wheel
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
+
+      - name: Create environment
+        run: tox -e lint-typing --notest
+
+      - name: Run lint
+        run: tox -e lint-typing

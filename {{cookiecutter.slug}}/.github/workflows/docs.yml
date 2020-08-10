@@ -9,7 +9,7 @@ on:
   pull_request:
     paths:
       - "{{cookiecutter.package}}/**"
-      - "docs/**"
+      - "docs/source/**"
       - "setup.py"
       - "tox.ini"
       - "requirements-dev.txt"

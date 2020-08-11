@@ -4,12 +4,12 @@
 
 profile = "black"
 line_length = 88
-
 skip_gitignore = true
 float_to_top = true
 order_by_type = true
 combine_star = true
 filter_files = true
+skip = ["{{cookiecutter.slug}}"]
 
 [tool.black]
 # See link below for available options
@@ -17,13 +17,4 @@ filter_files = true
 
 line-length = 88
 target-version = ["py36"]
-exclude = '''
-/(
-    \.git
-  | \.github
-  | \.venv
-  | \.tox
-  | \.mypy_cache
-  | \{\{cookiecutter.slug\}\}
-)/
-'''
+exclude = "{cookiecutter.slug}"

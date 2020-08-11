@@ -72,11 +72,11 @@ jobs:
         working-directory: cookie
         run: pip install -r requirements-dev.txt
 
-      - name: Run tests
+      - name: Run integration tests
         working-directory: cookie
-        run: tox -e tests -- --skip-large-download
+        run: tox -e tests-integration -- --skip-large-download
 
-      - name: Run doctests
+      - name: Run doc tests
         working-directory: cookie
         run: tox -e tests-docs
 

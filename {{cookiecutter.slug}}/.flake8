@@ -17,8 +17,19 @@ exclude =
     docs/build,
 ignore = E203, E501, W503
 max-line-length = 88
+max-doc-length = 88
 per-file-ignores =
     __init__.py: F401, F403, F405
     conftest.py: F401, F403, F405
+    docs/*: D1
+    tests/*: D1
 show_source = True
 statistics = True
+doctests = True
+
+# flake8-docstrings
+# See link below for available options
+# http://www.pydocstyle.org/en/stable/usage.html#available-options
+
+docstring-convention = google
+extend_ignore = D100, D104, D107

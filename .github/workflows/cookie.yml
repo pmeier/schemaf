@@ -74,7 +74,11 @@ jobs:
 
       - name: Run tests
         working-directory: cookie
-        run: tox -- --skip-large-download
+        run: tox -e tests -- --skip-large-download
+
+      - name: Run doctests
+        working-directory: cookie
+        run: tox -e tests-docs
 
   build:
     runs-on: ubuntu-latest
